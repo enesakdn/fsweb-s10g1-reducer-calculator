@@ -6,13 +6,19 @@ import {
   MEMORY_PLUS,
   MEMORY_RECALL,
   MEMORY_CLEAR,
+  applyNumber,
 } from "./actions/index.js";
+import { changeOperation } from "./actions/index";
 import TotalDisplay from "./components/TotalDisplay";
 import CalcButton from "./components/CalcButton";
 import reducer, { initialState } from "./reducers/index";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  function handleChange(operator) {
+    dispatch(changeOperation(operator));
+  }
 
   return (
     <div className="App">
@@ -100,12 +106,7 @@ function App() {
                   dispatch({ type: CHANGE_OPERATION, payload: "+" })
                 }
               />
-              <CalcButton
-                value={"*"}
-                onClick={() =>
-                  dispatch({ type: CHANGE_OPERATION, payload: "*" })
-                }
-              />
+              <CalcButton value={"*"} onClick={() => handleChange("*")} />
               <CalcButton
                 value={"-"}
                 onClick={() =>
